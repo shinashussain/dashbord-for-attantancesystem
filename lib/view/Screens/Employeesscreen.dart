@@ -1,11 +1,14 @@
 import 'package:dashbordwebapp/utils/AppTheme.dart';
+import 'package:dashbordwebapp/viewmode/provider/Home_pagea_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Employeesscreen extends StatelessWidget {
   const Employeesscreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<HomePageProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -115,7 +118,16 @@ class Employeesscreen extends StatelessWidget {
                         Text('Position: HR Manager'),
                         const SizedBox(height: 16),
                         ElevatedButton(
-                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blue, // Blue color
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(0), // Square button
+                            ),
+                          ),
+                          onPressed: () {
+                            provider.changeIndex(3);
+                          },
                           child: Text('Show Attendance'),
                         ),
                       ],

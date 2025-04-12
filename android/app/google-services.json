@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "380031462364",
+    "project_id": "attentance-system-eae95",
+    "storage_bucket": "attentance-system-eae95.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380031462364:android:7f8c464044aeac6b59bd19",
+        "android_client_info": {
+          "package_name": "com.example.dashbordwebapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYDXHbhwutTgN73gQDcz5CrWho62RaMT0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:380031462364:android:10327389997b7a2c59bd19",
+        "android_client_info": {
+          "package_name": "com.example.emplyeesapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYDXHbhwutTgN73gQDcz5CrWho62RaMT0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,5 @@
 import 'package:dashbordwebapp/view/Screens/Homescreen.dart';
+import 'package:dashbordwebapp/viewmode/provider/Home_pagea_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,7 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [],
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => HomePageProvider(),
+          ),
+        ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Dashboard Web App',
