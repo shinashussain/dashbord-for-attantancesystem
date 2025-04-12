@@ -1,8 +1,5 @@
-import 'package:dashbordwebapp/utils/AppTheme.dart';
-import 'package:dashbordwebapp/view/Screens/Employeesscreen.dart';
-import 'package:dashbordwebapp/view/Screens/Today_dashbord_Screen.dart';
+import 'package:dashbordwebapp/view/Screens/Emplyee_monthly_Screen.dart';
 import 'package:dashbordwebapp/view/widgets/dashbordselectingbutton.dart';
-import 'package:dashbordwebapp/viewmode/provider/Todaydashbordprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,16 +8,14 @@ class Homescreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<Todaydashbordprovider>(context);
-
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromARGB(31, 161, 161, 161),
       body: Row(
         children: [
           SizedBox(
             child: Container(
               width: 250,
-              color: const Color.fromARGB(255, 243, 243, 243),
+              color: const Color.fromARGB(184, 155, 155, 155),
               padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,7 +32,7 @@ class Homescreen extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(child: Employeesscreen())
+          Expanded(child: EmplyeeMonthlyScreen())
         ],
       ),
     );

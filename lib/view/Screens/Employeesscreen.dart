@@ -1,3 +1,4 @@
+import 'package:dashbordwebapp/utils/AppTheme.dart';
 import 'package:flutter/material.dart';
 
 class Employeesscreen extends StatelessWidget {
@@ -10,59 +11,71 @@ class Employeesscreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Employee Dashboard',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          Container(
+            height: 80,
+            padding: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Employees',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
           const SizedBox(height: 16),
           Expanded(
             child: Row(
               children: [
-                // Employee List
                 Expanded(
                   flex: 1,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: ListView(
-                      children: [
-                        ListTile(
-                          title: Text('John Doe'),
-                          onTap: () {},
-                        ),
-                        ListTile(
-                          title: Text('Jane Smith'),
-                          onTap: () {},
-                          selected: true,
-                          selectedTileColor: Colors.blue[50],
-                        ),
-                        ListTile(
-                          title: Text('Mike Johnson'),
-                          onTap: () {},
-                        ),
-                        ListTile(
-                          title: Text('Sarah Williams'),
-                          onTap: () {},
-                        ),
-                        ListTile(
-                          title: Text('Robert Brown'),
-                          onTap: () {},
-                        ),
-                        ListTile(
-                          title: Text('Emily Davis'),
-                          onTap: () {},
-                        ),
-                      ],
-                    ),
+                  child: ListView.builder(
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return Container(
+                          height: 40,
+                          padding: const EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            border: Border(
+                              top: BorderSide(
+                                color: Colors.grey[300]!,
+                                width: 1.0,
+                              ),
+                              left: BorderSide(
+                                color: Colors.grey[300]!,
+                                width: 1.0,
+                              ),
+                              right: BorderSide(
+                                color: Colors.grey[300]!,
+                                width: 1.0,
+                              ),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Employee ${index + 1}',
+                                style: AppTheme.bodyStyle,
+                              ),
+                              Icon(Icons.arrow_forward_ios,
+                                  size: 16, color: Colors.grey[600])
+                            ],
+                          ));
+                    },
                   ),
                 ),
                 const SizedBox(width: 16),
                 // Employee Details
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: Container(
+                    height: 300,
+                    width: 250,
                     padding: const EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
                       color: Colors.grey[100],
@@ -74,13 +87,6 @@ class Employeesscreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            CircleAvatar(
-                              radius: 30,
-                              child: Text(
-                                'JS',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            ),
                             const SizedBox(width: 16),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
