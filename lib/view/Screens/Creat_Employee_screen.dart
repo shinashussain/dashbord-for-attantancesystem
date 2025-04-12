@@ -1,4 +1,5 @@
 import 'package:dashbordwebapp/utils/AppTheme.dart';
+import 'package:dashbordwebapp/viewmode/Services/Firestore.dart';
 import 'package:flutter/material.dart';
 
 class CreatEmployeeScreen extends StatelessWidget {
@@ -82,6 +83,7 @@ class CreatEmployeeScreen extends StatelessWidget {
                     ),
                     onPressed: () {
                       // Handle submit action
+                      FirestoreService().createEmployee('John Doe', '10:05 AM');
                     },
                     child: Text(
                       'Submit',

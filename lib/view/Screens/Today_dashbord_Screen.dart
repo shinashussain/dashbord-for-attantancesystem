@@ -11,54 +11,51 @@ class TodayDashboardScreen extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SizedBox(
-          width: 500,
-          child: Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Today Dashboard',
-                      style: AppTheme.headingStyle.copyWith(fontSize: 24)),
-                  const SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Name', style: AppTheme.titleStyle),
-                      Text('Check-in Time', style: AppTheme.titleStyle),
-                    ],
+        Expanded(
+          flex: 1,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Today Dashboard',
+                    style: AppTheme.headingStyle.copyWith(fontSize: 24)),
+                const SizedBox(height: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Name', style: AppTheme.titleStyle),
+                    Text('Check-in Time', style: AppTheme.titleStyle),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('John Doe', style: AppTheme.bodyStyle),
+                                Text('10:05 AM', style: AppTheme.bodyStyle),
+                              ],
+                            ),
+                            const SizedBox(height: 2),
+                            Divider(
+                              color: Colors.black12,
+                              thickness: 1,
+                            )
+                          ],
+                        ),
+                      );
+                    },
                   ),
-                  const SizedBox(height: 12),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 6.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('John Doe', style: AppTheme.bodyStyle),
-                                  Text('10:05 AM', style: AppTheme.bodyStyle),
-                                ],
-                              ),
-                              const SizedBox(height: 2),
-                              Divider(
-                                color: Colors.black12,
-                                thickness: 1,
-                              )
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

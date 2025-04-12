@@ -2,7 +2,7 @@ import 'package:dashbordwebapp/utils/AppTheme.dart';
 import 'package:flutter/material.dart';
 
 class DashbordSelectingButton extends StatelessWidget {
-  String? buttontitle;
+  final String? buttontitle;
   final Function? onTap;
   DashbordSelectingButton({Key? key, required this.buttontitle, this.onTap});
 
