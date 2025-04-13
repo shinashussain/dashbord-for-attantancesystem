@@ -1,6 +1,9 @@
 import 'package:dashbordwebapp/firebase_options.dart';
 import 'package:dashbordwebapp/view/Screens/Homescreen.dart';
+import 'package:dashbordwebapp/viewmode/provider/AttendanceProvider.dart';
 import 'package:dashbordwebapp/viewmode/provider/Creat_employee_provider.dart';
+import 'package:dashbordwebapp/viewmode/provider/EmployeeAttendanceProvider.dart';
+import 'package:dashbordwebapp/viewmode/provider/EmployeesProvider.dart';
 import 'package:dashbordwebapp/viewmode/provider/Home_pagea_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +30,15 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => HomePageProvider()),
           ChangeNotifierProvider(
             create: (context) => CreateEmployeeProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => EmployeesProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => AttendanceProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => EmployeeAttendanceProvider(),
           ),
         ],
         child: MaterialApp(

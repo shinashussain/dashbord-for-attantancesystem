@@ -54,9 +54,9 @@ class Homescreen extends StatelessWidget {
                 index: provider.currentIndex,
                 children: [
                   const TodayDashboardScreen(),
-                  const Employeesscreen(),
+                  Employeesscreen(),
                   CreatEmployeeScreen(),
-                  const EmplyeeMonthlyScreen(),
+                  EmplyeeMonthlyScreen(userId: provider.userId.toString()),
                 ],
               ),
             ),

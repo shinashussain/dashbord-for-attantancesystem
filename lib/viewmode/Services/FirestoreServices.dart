@@ -1,4 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dashbordwebapp/Model/AttendanceRecord.dart';
+import 'package:dashbordwebapp/Model/Employee.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class FirestoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -21,4 +25,86 @@ class FirestoreService {
       'department': department
     });
   }
+
+  Stream<List<Employee>> getEmployeesStream() {
+    return _firestore.collection('user').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) {
+        final data = doc.data();
+        return Employee.fromFirestore(doc.id, data);
+      }).toList();
+    });
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> fetchTodayAttendance(
+      String todaydate) async {
+    try {
+      return await _firestore
+          .collection('attendance')
+          .doc(todaydate)
+          .collection('records')
+          .get();
+    } catch (e) {
+      print('Error fetching attendance data: $e !!!!!!!!!!!!!!!!!!!!!!!!1');
+      rethrow;
+    }
+  }
+
+  Future<DocumentSnapshot<Map<String, dynamic>>> fetchEmployeeData(
+      String employeeId) async {
+    try {
+      return await _firestore.collection('user').doc(employeeId).get();
+    } catch (e) {
+      print('Error fetching employee data: $e !!!!!!!!!!!!!!!!!!!!!!!!!');
+      rethrow;
+    }
+  }
+
+  Future<List<Map<String, dynamic>>> fetchEmployeeAttendance(
+      String userId) async {
+    try {
+      final snapshot = await _firestore.collection('attendance').get();
+
+      List<Map<String, dynamic>> attendanceRecords = [];
+
+      for (var doc in snapshot.docs) {
+        final recordSnapshot = await _firestore
+            .collection('attendance')
+            .doc(doc.id)
+            .collection('records')
+            .doc(userId)
+            .get();
+
+        if (recordSnapshot.exists) {
+          final data = recordSnapshot.data();
+          attendanceRecords.add({
+            'date': doc.id, // The document ID is the date (e.g., "2025-04-13")
+            'present': data?['present'] ?? false,
+            'timestamp': data?['timestamp'],
+          });
+        }
+      }
+
+      return attendanceRecords;
+    } catch (e) {
+      print('Error fetching employee attendance: $e');
+      return [];
+    }
+  }
 }
+
+// Firestore
+// │
+// ├── Collection: "users"
+// │      └── Document: {user_id}
+// │               ├── name         : string
+// │               ├── email        : string
+// │               ├── emp_id       : string
+// │               ├── phone        : string
+// │               └── joining_date : Timestamp
+// │
+// └── Collection: "attendance"
+//        └── Document: {YYYY-MM-DD}
+//                 └── Subcollection: "records"
+//                          └── Document: {user_id}
+//                                   ├── present   : true
+//                                   └── timestamp : FieldValue.serverTimestamp()
