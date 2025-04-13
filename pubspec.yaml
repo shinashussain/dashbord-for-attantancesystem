@@ -39,6 +39,8 @@ dependencies:
   pie_chart: ^5.4.0
   firebase_core: ^3.13.0
   cloud_firestore: ^5.6.6
+  intl: ^0.20.2
+  firebase_auth: ^5.5.2
 
 dev_dependencies:
   flutter_test:

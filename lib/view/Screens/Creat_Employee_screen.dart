@@ -1,101 +1,135 @@
 import 'package:dashbordwebapp/utils/AppTheme.dart';
-import 'package:dashbordwebapp/viewmode/Services/Firestore.dart';
+import 'package:dashbordwebapp/viewmode/provider/Creat_employee_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CreatEmployeeScreen extends StatelessWidget {
-  const CreatEmployeeScreen({super.key});
+  CreatEmployeeScreen({super.key});
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _departmentController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Create Employee',
-            style: AppTheme.headingStyle,
-          ),
-          const SizedBox(height: 25),
-          Container(
+    final employeecreatProvider = Provider.of<CreateEmployeeProvider>(context);
+    return employeecreatProvider.isLoading
+        ? Center(child: CircularProgressIndicator())
+        : Padding(
             padding: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Create Employee',
+                  style: AppTheme.headingStyle,
+                ),
+                const SizedBox(height: 25),
+                Container(
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Employee Information',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 20),
+                        TextField(
+                          controller: _nameController,
+                          decoration: InputDecoration(
+                            labelText: 'Name',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        TextField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        TextField(
+                          controller: _phoneController,
+                          decoration: InputDecoration(
+                            labelText: 'Phone No',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        TextField(
+                          controller: _departmentController,
+                          decoration: InputDecoration(
+                            labelText: 'Department',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        TextField(
+                          controller: _passwordController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        const SizedBox(height: 24),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0),
+                                ),
+                              ),
+                              onPressed: () {
+                                // Handle cancel action
+                              },
+                              child: Text('Cancel'),
+                            ),
+                            const SizedBox(width: 16),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color.fromARGB(255, 1,
+                                    132, 239), // Set button color to blue
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0),
+                                ),
+                              ),
+                              onPressed: () {
+                                print(
+                                    'Employee creation initiated@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+                                employeecreatProvider.createEmployee(
+                                    name: _nameController.text.trim(),
+                                    emailid: _emailController.text.trim(),
+                                    phonenumber: _phoneController.text.trim(),
+                                    department:
+                                        _departmentController.text.trim(),
+                                    password: _passwordController.text.trim());
+                              },
+                              child: Text(
+                                'Submit',
+                                style: AppTheme.labelStyle
+                                    .copyWith(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ]),
+                )
+              ],
             ),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(
-                'Employee Information',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Name',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Phone No',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Department',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0),
-                      ),
-                    ),
-                    onPressed: () {
-                      // Handle cancel action
-                    },
-                    child: Text('Cancel'),
-                  ),
-                  const SizedBox(width: 16),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(
-                          255, 1, 132, 239), // Set button color to blue
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0),
-                      ),
-                    ),
-                    onPressed: () {
-                      // Handle submit action
-                      FirestoreService().createEmployee('John Doe', '10:05 AM');
-                    },
-                    child: Text(
-                      'Submit',
-                      style: AppTheme.labelStyle.copyWith(color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
-            ]),
-          )
-        ],
-      ),
-    );
+          );
   }
 }
