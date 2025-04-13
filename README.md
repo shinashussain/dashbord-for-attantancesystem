@@ -35,8 +35,33 @@ The project is organized as follows:
 
 ## **folder structure**
 
-lib/ ├── main.dart ├── firebase_options.dart ├── Model/ │ ├── AttendanceRecord.dart │ ├── Employee.dart ├── utils/ │ ├── AppTheme.dart ├── view/ │ ├── DetaolsOfEmployee.dart │ ├── Screens/ │ │ ├── Creat_Employee_screen.dart │ │ ├── Employeesscreen.dart │ │ ├── Emplyee_monthly_Screen.dart │ │ ├── Homescreen.dart │ │ ├── Today_dashbord_Screen.dart │ ├── widgets/ │ ├── dashbordselectingbutton.dart ├── viewmode/ │ ├── provider/ │ │ ├── AttendanceProvider.dart │ │ ├── Creat_employee_provider.dart │ │ ├── EmployeeAttendanceProvider.dart │ │ ├── EmployeesProvider.dart │ │ ├── Home_pagea_provider.dart │ ├── Services/ │ ├── FirestoreServices.dart
-
+lib/
+├── main.dart                  ← App start
+├── firebase_options.dart      ← Firebase config
+├── Model/                     ← Data models
+│   ├── AttendanceRecord.dart
+│   ├── Employee.dart
+├── utils/                     ← Styles and utilities
+│   └── AppTheme.dart
+├── view/                      ← UI components and screens
+│   ├── DetaolsOfEmployee.dart
+│   ├── Screens/
+│   │   ├── Creat_Employee_screen.dart
+│   │   ├── Employeesscreen.dart
+│   │   ├── Emplyee_monthly_Screen.dart
+│   │   ├── Homescreen.dart
+│   │   └── Today_dashbord_Screen.dart
+│   └── widgets/
+│       └── dashbordselectingbutton.dart
+├── viewmode/                  ← App logic and state management
+│   ├── provider/
+│   │   ├── AttendanceProvider.dart
+│   │   ├── Creat_employee_provider.dart
+│   │   ├── EmployeeAttendanceProvider.dart
+│   │   ├── EmployeesProvider.dart
+│   │   └── Home_pagea_provider.dart
+│   └── Services/
+│       └── FirestoreServices.dart
 
 # Firestore Structure
 
