@@ -3,13 +3,22 @@ import 'package:dashbordwebapp/viewmode/provider/Creat_employee_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CreatEmployeeScreen extends StatelessWidget {
+class CreatEmployeeScreen extends StatefulWidget {
   CreatEmployeeScreen({super.key});
 
+  @override
+  State<CreatEmployeeScreen> createState() => _CreatEmployeeScreenState();
+}
+
+class _CreatEmployeeScreenState extends State<CreatEmployeeScreen> {
   final TextEditingController _nameController = TextEditingController();
+
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _phoneController = TextEditingController();
+
   final TextEditingController _departmentController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
 
   @override
@@ -94,7 +103,11 @@ class CreatEmployeeScreen extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
-                                // Handle cancel action
+                                _nameController.clear();
+                                _emailController.clear();
+                                _phoneController.clear();
+                                _departmentController.clear();
+                                _passwordController.clear();
                               },
                               child: Text('Cancel'),
                             ),
@@ -118,11 +131,15 @@ class CreatEmployeeScreen extends StatelessWidget {
                                         _departmentController.text.trim(),
                                     password: _passwordController.text.trim());
                               },
-                              child: Text(
-                                'Submit',
-                                style: AppTheme.labelStyle
-                                    .copyWith(color: Colors.white),
-                              ),
+                              child: employeecreatProvider.isLoading
+                                  ? CircularProgressIndicator()
+                                  : Text(
+                                      employeecreatProvider.isEmployeeCreated
+                                          ? 'done'
+                                          : 'Submit',
+                                      style: AppTheme.labelStyle
+                                          .copyWith(color: Colors.white),
+                                    ),
                             ),
                           ],
                         ),
@@ -131,5 +148,15 @@ class CreatEmployeeScreen extends StatelessWidget {
               ],
             ),
           );
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _departmentController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

@@ -5,8 +5,14 @@ class FirebaseAuthServices {
 
   User? get currentUser => _firebaseAuth.currentUser;
 
-  Future<void> createUser(String email, String password) async {
-    _firebaseAuth.createUserWithEmailAndPassword(
-        email: email, password: password);
+  Future<bool> createUser(String email, String password) async {
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      return true;
+    } catch (e) {
+      print('Error creating user: $e');
+      return false;
+    }
   }
 }

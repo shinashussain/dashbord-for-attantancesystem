@@ -32,8 +32,8 @@ class AttendanceProvider extends ChangeNotifier {
         final data = doc.data();
         return AttendanceRecord(
           userId: doc.id,
-          present: data?['present'] ?? false,
-          timestamp: data?['timestamp'],
+          present: data['present'] ?? false,
+          time: data['time'] ?? '',
         );
       }).toList();
 

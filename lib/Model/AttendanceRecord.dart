@@ -1,13 +1,13 @@
 class AttendanceRecord {
   final String userId;
   final bool present;
-  final String? timestamp;
+  final String? time;
   String? name;
 
   AttendanceRecord({
     required this.userId,
     required this.present,
-    required this.timestamp,
+    required this.time,
     this.name,
   });
 }

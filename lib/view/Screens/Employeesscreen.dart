@@ -1,9 +1,7 @@
 import 'package:dashbordwebapp/Model/Employee.dart';
 import 'package:dashbordwebapp/utils/AppTheme.dart';
-import 'package:dashbordwebapp/view/DetaolsOfEmployee.dart';
-import 'package:dashbordwebapp/viewmode/Services/FirestoreServices.dart';
+import 'package:dashbordwebapp/view/Screens/DetaolsOfEmployee.dart';
 import 'package:dashbordwebapp/viewmode/provider/EmployeesProvider.dart';
-import 'package:dashbordwebapp/viewmode/provider/Home_pagea_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -94,17 +92,13 @@ class Employeesscreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 16),
-                Expanded(
-                  flex: 1,
-                  child: Consumer<EmployeesProvider>(
-                    builder: (context, employeeProvider, _) {
-                      final selectedEmployee =
-                          employeeProvider.selectedEmployee;
-                      return selectedEmployee != null
-                          ? DetaolsofEmployee(employee: selectedEmployee)
-                          : const SizedBox();
-                    },
-                  ),
+                Consumer<EmployeesProvider>(
+                  builder: (context, employeeProvider, _) {
+                    final selectedEmployee = employeeProvider.selectedEmployee;
+                    return selectedEmployee != null
+                        ? DetaolsofEmployee(employee: selectedEmployee)
+                        : const SizedBox();
+                  },
                 ),
               ],
             ),

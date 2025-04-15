@@ -12,39 +12,31 @@ class EmplyeeMonthlyScreen extends StatefulWidget {
 }
 
 class _EmplyeeMonthlyScreenState extends State<EmplyeeMonthlyScreen> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final attendanceProvider =
-          Provider.of<EmployeeAttendanceProvider>(context);
-      attendanceProvider.fetchAttendance(widget.userId);
-    });
-  }
+  bool _hasFetched = false;
 
   @override
   Widget build(BuildContext context) {
-    final attendanceProvider =
-        Provider.of<EmployeeAttendanceProvider>(context, listen: false);
+    final attendanceProvider = Provider.of<EmployeeAttendanceProvider>(context);
 
+    if (!_hasFetched && widget.userId.isNotEmpty && widget.userId != 'null') {
+      _hasFetched = true;
+      attendanceProvider.fetchAttendance(widget.userId);
+    }
     return attendanceProvider.isLoading
-        ? Center(
-            child: CircularProgressIndicator(),
-          )
+        ? const Center(child: CircularProgressIndicator())
         : Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Header
-                Row(
-                  children: [
-                    Text('Attendance for : ${widget.userId}',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
-                  ],
+                Text(
+                  'Attendance for: ${widget.userId}',
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
+
                 // Attendance Table
                 Expanded(
                   child: Container(
@@ -59,9 +51,9 @@ class _EmplyeeMonthlyScreenState extends State<EmplyeeMonthlyScreen> {
                           color: Colors.grey[200],
                           padding: const EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 16.0),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
+                            children: [
                               Expanded(child: Text('Date')),
                               Expanded(child: Text('Status')),
                               Expanded(child: Text('Time')),
@@ -69,45 +61,57 @@ class _EmplyeeMonthlyScreenState extends State<EmplyeeMonthlyScreen> {
                           ),
                         ),
                         const Divider(height: 1, color: Colors.grey),
+
                         // Table Rows
-                        Expanded(
-                          child: ListView.builder(
-                            itemCount:
-                                attendanceProvider.attendanceRecords.length,
-                            itemBuilder: (context, index) {
-                              final record =
-                                  attendanceProvider.attendanceRecords[index];
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        record['date'] ?? '--/--/--',
-                                        style: AppTheme.labelStyle,
+                        attendanceProvider.attendanceRecords.isEmpty
+                            ? const Center(
+                                child: Text('No attendance records available'),
+                              )
+                            : Expanded(
+                                child: ListView.builder(
+                                  itemCount: attendanceProvider
+                                      .attendanceRecords.length,
+                                  itemBuilder: (context, index) {
+                                    final record = attendanceProvider
+                                        .attendanceRecords[index];
+                                    print(record['present']);
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              record['date'] ?? '--/--/--',
+                                              style: AppTheme.labelStyle,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              record['present'] == true
+                                                  ? 'Present'
+                                                  : 'Absent',
+                                              style:
+                                                  AppTheme.bodyStyle.copyWith(
+                                                color: record['present'] == true
+                                                    ? Colors.green
+                                                    : Colors.red,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Text(
+                                              record['timestamp'] ?? '--',
+                                              style: AppTheme.labelStyle,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    Expanded(
-                                      child: Text(
-                                        record['status'] ?? 'Absent',
-                                        style: AppTheme.bodyStyle.copyWith(
-                                          color: record['status'] == 'Present'
-                                              ? Colors.green
-                                              : Colors.red,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                        child: Text(record['timestamp'] ?? '--',
-                                            style: AppTheme.labelStyle)),
-                                  ],
+                                    );
+                                  },
                                 ),
-                              );
-                            },
-                          ),
-                        ),
+                              ),
                       ],
                     ),
                   ),

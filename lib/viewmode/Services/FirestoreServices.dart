@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dashbordwebapp/Model/AttendanceRecord.dart';
 import 'package:dashbordwebapp/Model/Employee.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class FirestoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -60,28 +57,26 @@ class FirestoreService {
   }
 
   Future<List<Map<String, dynamic>>> fetchEmployeeAttendance(
-      String userId) async {
+      String userid) async {
     try {
       final snapshot = await _firestore.collection('attendance').get();
-
       List<Map<String, dynamic>> attendanceRecords = [];
-
       for (var doc in snapshot.docs) {
         final recordSnapshot = await _firestore
             .collection('attendance')
             .doc(doc.id)
             .collection('records')
-            .doc(userId)
+            .doc(userid)
             .get();
-
+        print(recordSnapshot.data());
         if (recordSnapshot.exists) {
           final data = recordSnapshot.data();
           attendanceRecords.add({
-            'date': doc.id, // The document ID is the date (e.g., "2025-04-13")
+            'date': doc.id,
             'present': data?['present'] ?? false,
             'timestamp': data?['timestamp'],
           });
-        }
+        } else {}
       }
 
       return attendanceRecords;

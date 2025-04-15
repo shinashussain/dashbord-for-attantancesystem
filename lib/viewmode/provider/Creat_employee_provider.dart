@@ -27,24 +27,34 @@ class CreateEmployeeProvider extends ChangeNotifier {
       required String phonenumber,
       required String department,
       required String password}) async {
-    print('#####################################3');
     final employeeid = generateEmployeeId();
     final joiningdate = generateJoiningDate();
-    try {
-      isLoading = true;
-      print('Creating employee with ID: $employeeid');
-      print('date is formatted $joiningdate');
-      print('Employee creation initiated1111111111111111111111111111111111111');
-      await FirebaseAuthServices().createUser(emailid, password);
-      await FirestoreService().storeEmployeeData(employeeid, name, emailid,
-          employeeid, phonenumber, joiningdate, department);
-    } catch (e) {
-      print('firebase create user error: $e');
-      print('erorr !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-    } finally {
-      isLoading = false;
-      isEmployeeCreated = true;
-      notifyListeners();
+    if (name.isNotEmpty &&
+        emailid.isNotEmpty &&
+        phonenumber.isNotEmpty &&
+        department.isNotEmpty) {
+      try {
+        isLoading = true;
+        bool isUserCreated =
+            await FirebaseAuthServices().createUser(emailid, password);
+        if (isUserCreated == true) {
+          await FirestoreService().storeEmployeeData(employeeid, name, emailid,
+              employeeid, phonenumber, joiningdate, department);
+        }
+        print('firebase create user error: $e !!!!!!!!!!!!!!!!!!!!!!!!11');
+      } finally {
+        isLoading = false;
+        isEmployeeCreated = true;
+        notifyListeners();
+      }
     }
+  }
+
+  void resetEmployeeCreatedStatus() {
+    Future.delayed(Duration(seconds: 2), () {
+      isEmployeeCreated = false;
+      notifyListeners();
+      print(isEmployeeCreated);
+    });
   }
 }

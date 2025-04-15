@@ -13,6 +13,7 @@ class HomePageProvider extends ChangeNotifier {
 
   void setUserId(String id) {
     _userId = id;
+    print('User ID set to: $_userId');
     notifyListeners();
   }
 }
